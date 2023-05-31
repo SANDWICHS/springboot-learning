@@ -1,0 +1,16 @@
+server:
+  port: 6200
+
+spring:
+  application:
+    name: order-service
+  profiles:
+    active: local
+
+#防止连接超时
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 20000
+        read-timeout: 20000

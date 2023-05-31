@@ -1,0 +1,51 @@
+server:
+  port: 6300
+  #servlet:
+  #context-path: /zwq
+cat:
+  config:
+    enabled: true
+
+spring:
+  application:
+    name: product-service
+  profiles:
+    active: local
+  datasource:
+    click:
+      enable: true
+      #type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+      #url: jdbc:clickhouse://ip:port,ip:port/mtnoh_aaa_platform
+      url: jdbc:clickhouse://192.168.0.164:9090/mtnoh_aaa_platform
+      user: click-users
+      password: chproxy123@test
+    mysql:
+      enable: true
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      #url: jdbc:mysql://192.168.0.178:3306/mtnoh_aaa_platform?allowMultiQueries=true&rewriteBatchedStatements=true&useSSL=false&useServerPrepStmts=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+      url: jdbc:mysql://192.168.0.221:3307/mtnoh_aaa_platform?allowMultiQueries=true&rewriteBatchedStatements=true&useSSL=false&useServerPrepStmts=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&autoReconnect=true&failOverReadOnly=false
+      #username: dwgl
+      username: dtauser
+      #password: dwgl123!@#
+      password: ywgl123!@#
+scheduled:
+  enabled: false
+
+rocketmq:
+  # rocketMQ的命名服务器，格式为: host:port;host:port
+  name-server: 192.168.0.237:9876;192.168.0.149:9876;192.168.0.17:9876
+  producer:
+    # 生产者的组名
+    group: zwq-group
+    # 发送消息超时时间 默认3秒
+    send-message-timeout: 3000
+
+#防止连接超时
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 20000
+        read-timeout: 20000

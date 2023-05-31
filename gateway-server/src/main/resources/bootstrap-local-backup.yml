@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: gateway-server
+  profiles:
+    active: local
+  cloud:
+    gateway:
+      routes:
+        #路由ID，唯一
+        - id: order-service-lb
+          #uri: http://localhost:6200/   #目标URI，路由到微服务的地址
+          uri: lb://order-service
+          #断言（判断条件）
+          predicates:
+            #匹配对应URL的请求，将匹配到的请求追加在目标URI之后
+            - Path=/zwq/gateway/order/**
+            #- Path=/**
+            #- Path=/api/order/{segment}
+            #- Query=token               #匹配请求参数中包含token的请求
+            #- Query=token, abc.               #匹配请求参数中包含token并且起参数值满足正则表达式abc的请求
+            #- Method=GET                  #匹配任意GET请求
+            #匹配上海时间2022-04-27 16:47:11之后的请求
+            #- After=2022-04-27T16:47:11.000+8:00[Asia/Shanghai]
+            #- RemoteAddr=192.168.0.21/0   #匹配远程地址请求是RemoteAddr的请求，0表示子网掩码
+            #- Header=X-Request-Id, \d+     #匹配请求头包含X-Request-Id并且其值匹配正则表达式\d+的请求
+            #filters:    #网关过滤器
+            #将/api-gateway/order/1 重写为/order/1 http://127.0.0.1:6100/api-gateway/order/3?token=33
+            #RewritePathGatewayFilterFactory
+            #- RewritePath=/api-gateway(?<segment>/?.*),$\{segment}
+            #将/1重写为/order/1   http://127.0.0.1:6100/3?token=33
+            #PrefixPathGatewayFilterFactory
+            #- PrefixPath=/order
+            #将/api/123/order/1 重写为/order/1 http://127.0.0.1:6100/api/124/order/3?token=33
+            #StripPrefixGatewayFilterFactory
+            #- StripPrefix=2
+            #将/api/order/1 重写为/order/1 http://127.0.0.1:6100/api/order/3?token=33
+            #- Path=/api/order/{segment}
+            #SetPathGatewayFilterFactory
+            #- SetPath=/order/{segment}
+            #- AddRequestParameter=flag, 1
+          filters:
+            - StripPrefix=2
+        #路由ID，唯一
+        - id: product-service-lb
+          #目标URI，路由到微服务的地址
+          uri: lb://product-service
+          #断言（判断条件）
+          predicates:
+            #匹配对应URL的请求，将匹配到的请求追加在目标URI之后
+            - Path=/zwq/gateway/product/**
+          filters:
+            - StripPrefix=2
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true

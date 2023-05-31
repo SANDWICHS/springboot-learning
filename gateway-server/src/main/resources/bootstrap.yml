@@ -1,0 +1,35 @@
+server:
+  port: 6100
+  tomcat:
+    # 等待队列长度，默认100。
+    accept-count: 2048
+    # 最大工作线程数
+    threads:
+      max: 2048
+  servlet:
+    context-path: /zwq
+
+spring:
+  application:
+    name: gateway-server
+  profiles:
+    active: local
+    discovery:
+      locator:
+        enabled: true
+        lower-case-service-id: true
+
+
+cat:
+  config:
+    enabled: true
+    traceId: zwqTraceId
+    domain: cat-zwq
+    service:
+      - zwqService
+    clientSystem: zwq
+    logFilterPrefixs:
+      - com.alibaba.nacos
+      - org.apache.rocketmq.logging
+      - com.netflix
+      - xx

@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    nacos:
+      username: nacos
+      password: Dwgl@nacos123
+      discovery:
+        server-addr: 192.168.0.33:30849
+        namespace: 879c0383-170a-4921-9fcf-60279d9f2562
+        username: nacos
+        password: Dwgl@nacos123
+      config:
+        server-addr: 192.168.0.33:30849
+        namespace: 879c0383-170a-4921-9fcf-60279d9f2562
+        username: nacos
+        password: Dwgl@nacos123
+        extension-configs:
+          - data-id: logback-config.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: gateway-config.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+    gateway:
+      enabled: true
