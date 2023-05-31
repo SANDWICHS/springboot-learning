@@ -160,26 +160,56 @@ public class OrderController implements OrderApi {
 
 	@Override
 	public CommonResults order(Integer id) {
-		return orderService.order(id);
+		try {
+			return orderService.order(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("order调用异常", e);
+			return new CommonResults(-1, "false", "order调用异常");
+		}
 	}
 
 	@Override
 	public CommonResults orderList(Integer userId, Integer index, Integer eachCount) {
-		return orderService.orderList(userId, index, eachCount);
+		try {
+			return orderService.orderList(userId, index, eachCount);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("orderList调用异常", e);
+			return new CommonResults(-1, "false", "orderList调用异常");
+		}
 	}
 
 	@Override
 	public CommonResults insert(JSONObject params) {
-		return orderService.insert(params);
+		try {
+			return orderService.insert(params);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("insert调用异常", e);
+			return new CommonResults(-1, "false", "insert调用异常");
+		}
 	}
 
 	@Override
 	public CommonResults update(JSONObject params) {
-		return orderService.update(params);
+		try {
+			return orderService.update(params);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("update调用异常", e);
+			return new CommonResults(-1, "false", "update调用异常");
+		}
 	}
 
 	@Override
 	public CommonResults delete(JSONObject params) {
-		return orderService.delete(params);
+		try {
+			return orderService.delete(params);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("delete调用异常", e);
+			return new CommonResults(-1, "false", "delete调用异常");
+		}
 	}
 }

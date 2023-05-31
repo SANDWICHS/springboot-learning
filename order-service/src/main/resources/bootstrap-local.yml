@@ -22,3 +22,9 @@ spring:
           - data-id: redis-config.yaml
             group: DEFAULT_GROUP
             refresh: true
+          - data-id: db-config.yaml
+            group: DEFAULT_GROUP
+            refresh: true            
+          - data-id: order-config.yaml
+            group: DEFAULT_GROUP
+            refresh: true

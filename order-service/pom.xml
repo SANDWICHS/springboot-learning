@@ -36,6 +36,12 @@
             <version>1.7.30</version>
         </dependency>
 
+        <dependency>  
+		    <groupId>com.jcraft</groupId>  
+		    <artifactId>jsch</artifactId>  
+		    <version>0.1.55</version>  
+	   	</dependency>
+
         <dependency>
             <groupId>cn.zwq</groupId>
             <artifactId>common</artifactId>

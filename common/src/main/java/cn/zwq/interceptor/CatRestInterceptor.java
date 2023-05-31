@@ -67,28 +67,22 @@ public class CatRestInterceptor implements ClientHttpRequestInterceptor {
 			CatContext context = new CatContext();
 			String domain = Optional.ofNullable(catProperties).map(value -> value.getDomain()).orElse("zwq");
 			Cat.logRemoteCallClient(context, domain); // 声明子节点
-			// Cat.logRemoteCallClient(context); // 声明子节点
 			headers.add(CatServiceLogUtils.KEY_ROOT, context.getProperty(Cat.Context.ROOT));
 			headers.add(CatServiceLogUtils.KEY_PARENT, context.getProperty(Cat.Context.PARENT));
 			headers.add(CatServiceLogUtils.KEY_CHILD, context.getProperty(Cat.Context.CHILD));
-			// headers.add(CatServiceLogUtils.KEY_TRACE_MODE, "true");
+			headers.add(CatServiceLogUtils.KEY_TRACE_MODE, "true");
 			headers.add(CatServiceLogUtils.KEY_CLIENT_SYSTEM, CatServiceLogUtils.getClientSystem());
 
 			final ClientHttpResponse execute = clientHttpRequestExecution.execute(httpRequest, bytes);
-			// long elapsedTime = System.currentTimeMillis() - startTime;
-			// logger.info("Rest-uri-end，耗时：{}ms", elapsedTime);
 
 			return execute;
 		} catch (Exception e) {
-			// Cat.getProducer().logError(e);
 			CatUtils.setStatus(t, e);
 			CatUtils.closeTransaction(t);
 			ThreadLocalUtil.remove(CatUtils.KEY_REST_TRANSACTION);
 			ThreadLocalUtil.remove(CatUtils.KEY_REST_START_TIME);
 			ThreadLocalUtil.remove(CatUtils.KEY_REST_URI);
 			throw e;
-		} finally {
-			// CatUtils.closeTransaction(t);
 		}
 	}
 
